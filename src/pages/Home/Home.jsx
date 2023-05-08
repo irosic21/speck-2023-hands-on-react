@@ -2,15 +2,22 @@ import React from 'react'
 import Hero from "../../components/Hero/Hero";
 import Section from "../../components/Section/Section";
 import Course from "../../components/Course/Course";
-import Grid from "../../components/Grid/Grid";
 
-import LectureImg1 from "../../assets/images/lecture-1.jpg";
-import LectureImg2 from "../../assets/images/lecture-2.jpg";
-import LectureImg3 from "../../assets/images/lecture-3.jpg";
-import LectureImg5 from "../../assets/images/lecture-5.jpg";
+import { Grid } from '../../utils/styles/generalStyles';
+import { useEffect, useState } from 'react';
+
 import { Link } from 'react-router-dom';
+import coursesMock from '../../utils/mock/courses';
 
 const Home = () => {
+  const[courses, setCourses] = useState(null);
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      setCourses(coursesMock);
+    },1000);
+  },[]);
+
   return (
     <>
     <Hero/>
@@ -19,14 +26,20 @@ const Home = () => {
       don't find anything for you here, search for courses in detail on
       the courses page."
     >
+      {courses &&
       <Grid>
-        <Link to="/Course">
-          <Course imgSrc={LectureImg1} imgAlt="Introduction" title="Introduction" subtitle="Get to know us better..." time="60 min" />
-        </Link>
-        <Course imgSrc={LectureImg2} imgAlt="HTML & CSS" title="HTML & CSS" subtitle="Learn HTML & CSS basics..." time="100 min" />
-        <Course imgSrc={LectureImg3} imgAlt="Version Control Systems" title="Version Control Systems" subtitle="Learn GIT and Gitflow basics..." time="90 min" />
-        <Course imgSrc={LectureImg5} imgAlt="Advanced CSS" title="Advanced CSS" subtitle="BEM methodology, grid, flex..." time="120 min" />
-      </Grid>
+        {courses.map((course, index) => index < 4 && (
+          <Course 
+            key={course.id}
+            imgSrc={course.imgSrc} 
+            imgAlt={course.imgAlt} 
+            title={course.title} 
+            subtitle={course.subtitle} 
+            time={course.time}
+            id={course.id}
+          />
+        ))}
+      </Grid>}
     </Section>
     </>
   )

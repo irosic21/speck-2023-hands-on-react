@@ -1,14 +1,14 @@
 @import '../../theme.scss';
 
 .SinglePage {
-
+    padding: 64px 24px;
     &-Figure {
         width: 100%;
         height: 220px;
         overflow: hidden;
         border-radius: 6px;
         margin-bottom: 32px;
-
+        
         @media screen and ($mobileLarge) {
             height: 300px;
         }

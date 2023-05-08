@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route index element={<Home/>} />
           <Route path="/Courses" element={<Courses/>} />
-          <Route path="/Course" element={<CourseArticle/>} />
+          <Route path="/Courses/:id" element={<CourseArticle/>} />
         </Routes>
         <ScrollToTop/>
       </main>
