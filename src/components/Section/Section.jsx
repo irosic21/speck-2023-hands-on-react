@@ -1,25 +1,24 @@
+import { Section as SectionWrapper, SectionInner, SectionTitle, SectionSubtitle } from './SectionStyle';
+
 import React from 'react'
-import PropTypes from "prop-types"
-import "./Section.scss"
+import propTypes from "prop-types"
 
 const Section = ({title,subtitle,children}) => {
   return (
-    <section className="Section">
-        <div className="Section-Inner">
-          <h2 className="Section-Title">{title}</h2>
-          <p className="Section-Subtitle">
-            {subtitle}
-          </p>
-        </div>
+    <SectionWrapper>
+      <SectionInner>
+        <SectionTitle>{title}</SectionTitle>
+        <SectionSubtitle>{subtitle}</SectionSubtitle>
         {children}
-      </section>
+      </SectionInner>
+    </SectionWrapper>
   )
 }
 
-Section.PropTypes = {
-    title: PropTypes.string,
-    subtitle: PropTypes.string,
-    children: PropTypes.node
+Section.propTypes = {
+    title: propTypes.string,
+    subtitle: propTypes.string,
+    children: propTypes.node
 }
 
 export default Section

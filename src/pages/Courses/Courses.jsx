@@ -24,7 +24,7 @@ const Courses = () => {
     >
         {courses &&
       <Grid>
-        {courses.map((course, index) =>(
+        {courses.map((course) =>(
           <Course 
             key={course.id}
             imgSrc={course.imgSrc} 

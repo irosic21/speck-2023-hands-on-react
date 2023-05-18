@@ -23,18 +23,15 @@ export const Button = styled.button`
 export const Grid = styled.div`
     display: grid;
     gap: 32px;
-    padding: 64px 24px;
     @media screen and (${breakpoints.tabletSmall}) {
           grid-template-columns: repeat(2, 1fr);
       }
       
       @media screen and (${breakpoints.tablet}) {
-        padding: 72px 32px;
         grid-template-columns: repeat(3, 1fr);
       }
       
       @media screen and (${breakpoints.desktopLarge}) {
-        padding: 90px 0;
         grid-template-columns: repeat(4, 1fr);
       }
 `;
