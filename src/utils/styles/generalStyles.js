@@ -35,3 +35,9 @@ export const Grid = styled.div`
         grid-template-columns: repeat(4, 1fr);
       }
 `;
+
+export const CenteringWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
