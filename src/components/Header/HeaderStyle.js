@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { breakpoints, colors } from '../../utils/styles/theme';
-import { ReactComponent as HamburgerIcon } from "../../assets/images/icon-hamburger.svg";
 import { ReactComponent as LogoIcon } from "../../assets/images/logo.svg";
 import { Link } from 'react-router-dom';
 
@@ -30,7 +29,7 @@ export const HeaderInner = styled.div`
     }
 `;
 
-export const Hamburger = styled(HamburgerIcon)`
+export const Hamburger = styled.div`
     display: block;
     width: 32px;
     height: 32px;
