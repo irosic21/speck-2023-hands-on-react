@@ -5,6 +5,8 @@ import Home from "./pages/Home/Home";
 import Courses from "./pages/Courses/Courses";
 import ScrollToTop from "./ScrollToTop";
 import CourseArticle from "./pages/CourseArticle/CourseArticle";
+import SignIn from "./pages/SignIn/SignIn";
+import Register from "./pages/Register/Register";
 
 function App() {
   return (
@@ -13,8 +15,10 @@ function App() {
       <main>
         <Routes>
           <Route index element={<Home/>} />
-          <Route path="/Courses" element={<Courses/>} />
-          <Route path="/Courses/:id" element={<CourseArticle/>} />
+          <Route path="/courses" element={<Courses/>} />
+          <Route path="/courses/:id" element={<CourseArticle/>} />
+          <Route path="/sign-in" element={<SignIn/>} />
+          <Route path="/register" element={<Register/>} />
         </Routes>
         <ScrollToTop/>
       </main>

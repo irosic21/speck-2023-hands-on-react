@@ -23,7 +23,7 @@ const Hero = () => {
                         <HeroSubtitle>
                             Make a turnaround in your career or upgrade your current skill set with knowledge-based lessons from IT practice.
                         </HeroSubtitle>
-                        <Button onClick={()=>navigate("/Courses")}>Explore courses</Button>
+                        <Button onClick={()=>navigate("/courses")} isSecondary>Explore courses</Button>
                     </HeroTextCard>
                 </HeroContentInner>
             </HeroContent>

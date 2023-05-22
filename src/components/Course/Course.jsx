@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 const Course = ({imgSrc, imgAlt, title, subtitle, time, id}) => {
   return (
-    <CourseWrapper to={`/Courses/${id}`}>
+    <CourseWrapper to={`/courses/${id}`}>
       <CourseFigure>
         <CourseImg src={imgSrc} alt={imgAlt}/>
       </CourseFigure>

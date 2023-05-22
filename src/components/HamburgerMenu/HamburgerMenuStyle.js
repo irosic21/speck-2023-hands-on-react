@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { colors } from '../../utils/styles/theme';
-import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import { colors } from "../../utils/styles/theme";
+import { Link } from "react-router-dom";
 
 export const MenuWrapper = styled.div`
   position: absolute;
@@ -31,7 +31,7 @@ export const MenuItem = styled(Link)`
   justify-content: center;
 
   &:not(:last-child)::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: 0;
@@ -41,7 +41,8 @@ export const MenuItem = styled(Link)`
   }
 
   &:hover {
-    color: ${colors.primary};
+    color: ${colors.secondary};
+    background-color: ${colors.primaryDark};
   }
 `;
 
@@ -56,6 +57,6 @@ export const HamburgerButton = styled.button`
   svg {
     width: 32px;
     height: 32px;
-    fill: ${props => (props.isOpen ? colors.primary : colors.textPrimary)};
+    fill: ${(props) => (props.isOpen ? colors.primary : colors.textPrimary)};
   }
 `;

@@ -29,8 +29,9 @@ const Header = () =>{
                 </Hamburger>
                 <HeaderNav>
                     <HeaderLink to="/">Home</HeaderLink>
-                    <HeaderLink to="/Courses">Courses</HeaderLink>
-                    <Button onClick={()=>navigate("/Register")}>Register</Button>
+                    <HeaderLink to="/courses">Courses</HeaderLink>
+                    <Button onClick={()=>navigate("/sign-in")} isOutline>Sign in</Button>
+                    <Button onClick={()=>navigate("/register")}>Register</Button>
                 </HeaderNav>
             </HeaderInner>
         </HeaderWrapper>

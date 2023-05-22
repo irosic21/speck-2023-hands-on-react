@@ -15,9 +15,9 @@ const HamburgerMenu = ({ isOpen, toggleMenu, closeMenu }) => {
       {isOpen && (
         <MenuWrapper>
           <MenuItem to="/" onClick={handleLinkClick}>Home</MenuItem>
-          <MenuItem to="/Courses" onClick={handleLinkClick}>Courses</MenuItem>
-          <MenuItem to="/SignIn" onClick={handleLinkClick}>Sign In</MenuItem>
-          <MenuItem to="/Register" onClick={handleLinkClick}>Register</MenuItem>
+          <MenuItem to="/courses" onClick={handleLinkClick}>Courses</MenuItem>
+          <MenuItem to="/sign-in" onClick={handleLinkClick}>Sign In</MenuItem>
+          <MenuItem to="/register" onClick={handleLinkClick}>Register</MenuItem>
         </MenuWrapper>
       )}
     </>
