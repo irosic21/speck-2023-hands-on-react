@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import { ReactComponent as HamburgerIcon } from "../../assets/images/icon-hamburger.svg";
-import { MenuWrapper, MenuItem, HamburgerButton} from './HamburgerMenuStyle';
+import { MenuWrapper, MenuItem, HamburgerButton } from "./HamburgerMenuStyle";
 
 const HamburgerMenu = ({ isOpen, toggleMenu, closeMenu }) => {
   const handleLinkClick = () => {
@@ -14,10 +14,21 @@ const HamburgerMenu = ({ isOpen, toggleMenu, closeMenu }) => {
       </HamburgerButton>
       {isOpen && (
         <MenuWrapper>
-          <MenuItem to="/" onClick={handleLinkClick}>Home</MenuItem>
-          <MenuItem to="/courses" onClick={handleLinkClick}>Courses</MenuItem>
-          <MenuItem to="/sign-in" onClick={handleLinkClick}>Sign In</MenuItem>
-          <MenuItem to="/register" onClick={handleLinkClick}>Register</MenuItem>
+          <MenuItem to="/" onClick={handleLinkClick}>
+            Home
+          </MenuItem>
+          <MenuItem to="/courses" onClick={handleLinkClick}>
+            Courses
+          </MenuItem>
+          <MenuItem to="/profile" onClick={handleLinkClick}>
+            Profile
+          </MenuItem>
+          <MenuItem to="/sign-in" onClick={handleLinkClick}>
+            Sign In
+          </MenuItem>
+          <MenuItem to="/register" onClick={handleLinkClick}>
+            Register
+          </MenuItem>
         </MenuWrapper>
       )}
     </>
