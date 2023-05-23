@@ -11,7 +11,7 @@ import {
 } from "./HeaderStyle";
 import { Link, useNavigate } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ isAdmin, isLoggedIn, setIsAdmin, setIsLoggedIn }) => {
   const navigate = useNavigate();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);

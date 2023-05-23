@@ -6,11 +6,16 @@ import {
   FormRow,
   Field,
   ErrorMessage,
+  FormSuccessMessage,
 } from "../../utils/styles/generalStyles";
 import Section from "../../components/Section/Section";
 import { Button } from "../../utils/styles/generalStyles";
+import { getUsers, loginUser } from "../../api/users";
+import { useState } from "react";
 
-const SignIn = () => {
+const SignIn = ({ setIsAdmin, setIsLoggedIn }) => {
+  const [successMessage, setSuccessMessage] = useState(null);
+
   return (
     <Section title="Sign in">
       <Formik
@@ -26,21 +31,49 @@ const SignIn = () => {
             .min(8, "Password must be at least 8 characters long")
             .required("Password is required"),
         })}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
-          setTimeout(() => {
-            const data = {
-              email: values.email,
-              password: values.password,
-            };
-            alert(JSON.stringify(data, null, 2));
-            console.log(data);
-            setSubmitting(false);
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
+          try {
+            const response = await loginUser(values);
+            const users = await getUsers(response.access_token);
+            const user = users.data.find((user) => user.email === values.email);
+            setSuccessMessage({
+              error: false,
+              message:
+                "User " +
+                user.first_name +
+                " " +
+                user.last_name +
+                " is logged in successfully",
+            });
+            setTimeout(() => {
+              setSuccessMessage(null);
+            }, 2000);
+
+            localStorage.setItem("jwt_token", response.access_token);
+
+            setIsAdmin(user.is_admin);
+            setIsLoggedIn(true);
+
             resetForm();
-          }, 1000);
+          } catch (error) {
+            setSuccessMessage({
+              error: true,
+              message: "User is not logged in successfully",
+            });
+          } finally {
+            setSubmitting(false);
+          }
         }}
       >
         {(formik) => (
           <Form>
+            {successMessage && (
+              <FormRow>
+                <FormSuccessMessage isError={successMessage.error}>
+                  {successMessage.message}
+                </FormSuccessMessage>
+              </FormRow>
+            )}
             <FormRow>
               <Field
                 type="email"
@@ -61,7 +94,7 @@ const SignIn = () => {
             </FormRow>
             <FormRow>
               <Button isSecondary type="submit" disabled={formik.isSubmitting}>
-                {formik.isSubmitting ? "Processing..." : "Register"}
+                {formik.isSubmitting ? "Processing..." : "Sign in"}
               </Button>
             </FormRow>
           </Form>
