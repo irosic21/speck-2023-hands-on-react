@@ -1,7 +1,7 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const WidgetWrapper = styled.div`
-  max-width: 300px;
+  width: 300px;
 `;
 
 export const WidgetTitle = styled.h3`

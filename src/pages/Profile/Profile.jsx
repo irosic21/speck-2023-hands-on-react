@@ -6,25 +6,30 @@ import { ProfileContent } from "./ProfileStyle";
 import ResetPasswordWidget from "../../components/ResetPasswordWidget/ResetPasswordWidget";
 
 const Profile = () => {
-  //   let isEditing = false;
   const [isEditing, setIsEditing] = useState(false);
+
+  const handleFormSubmit = () => {
+    setIsEditing(false);
+  };
 
   const changeEditingState = () => {
     setIsEditing(!isEditing);
   };
-  console.log("Edit state u profilu", isEditing);
   return (
     <Section
       title="Profile"
       secondChildren={
         <Button isOutline onClick={changeEditingState}>
-          Edit
+          {isEditing ? "Cancel" : "Edit"}
         </Button>
       }
     >
       <ProfileContent>
-        <ProfileForm editState={isEditing} />
-        <ResetPasswordWidget editState={isEditing} />
+        <ProfileForm editState={isEditing} onFormSubmit={handleFormSubmit} />
+        <ResetPasswordWidget
+          editState={isEditing}
+          onFormSubmit={handleFormSubmit}
+        />
       </ProfileContent>
     </Section>
   );

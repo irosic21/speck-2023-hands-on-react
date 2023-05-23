@@ -11,9 +11,13 @@ import {
 } from "../../utils/styles/generalStyles";
 import propTypes from "prop-types";
 import { Button } from "../../utils/styles/generalStyles";
-import { ProfileFormWrapper } from "./ProfileFormStyle";
+import {
+  ProfileFormWrapper,
+  ProfileFormLabel,
+  ProfileFormContainer,
+} from "./ProfileFormStyle";
 
-const ProfileForm = (editState) => {
+const ProfileForm = ({ editState, onFormSubmit }) => {
   const [state, setState] = useState({
     firstName: "Ivo",
     lastName: "Rošić",
@@ -22,10 +26,34 @@ const ProfileForm = (editState) => {
     zeplinUsername: "irosic21",
     activeFacultyYear: "3",
   });
-  const editingState = editState.editState;
+  let data = {};
 
-  console.log("Edit state u profil formi", editState.editState);
-  console.log("Edit state u profil formi, moja varijabla", !editingState);
+  const checkChanges = (values) => {
+    if (values.firstName != state.firstName) {
+      state.firstName = values.firstName;
+      data["first_name"] = values.firstName;
+    }
+    if (values.lastName != state.lastName) {
+      state.lastName = values.lastName;
+      data["last_name"] = values.lastName;
+    }
+    if (values.email != state.email) {
+      state.email = values.email;
+      data["email"] = values.email;
+    }
+    if (values.githubUsername != state.githubUsername) {
+      state.githubUsername = values.githubUsername;
+      data["github_username"] = values.githubUsername;
+    }
+    if (values.zeplinUsername != state.zeplinUsername) {
+      state.zeplinUsername = values.zeplinUsername;
+      data["zeplin_username"] = values.zeplinUsername;
+    }
+    if (values.activeFacultyYear != parseInt(state.activeFacultyYear)) {
+      state.activeFacultyYear = values.activeFacultyYear;
+      data["zeplin_username"] = values.activeFacultyYear;
+    }
+  };
 
   return (
     <ProfileFormWrapper>
@@ -50,59 +78,81 @@ const ProfileForm = (editState) => {
         })}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setTimeout(() => {
-            const data = {
-              first_name: values.firstName,
-              last_name: values.lastName,
-              email: values.email,
-              github_username: values.githubUsername,
-              zeplin_username: values.zeplinUsername,
-              active_faculty_year:
-                parseInt(values.activeFacultyYear) === 0
-                  ? null
-                  : parseInt(values.activeFacultyYear),
-              is_admin: false,
-            };
+            checkChanges(values);
             alert(JSON.stringify(data, null, 2));
-            console.log(data);
+            onFormSubmit();
             setSubmitting(false);
-            resetForm();
+            data = {};
+            // resetForm();
           }, 1000);
         }}
       >
         {(formik) => (
           <Form>
             <FormRow>
-              <Field type="text" name="firstName" disabled={!editingState} />
+              {editState && (
+                <ProfileFormContainer>
+                  <ProfileFormLabel htmlFor="email">
+                    First name
+                  </ProfileFormLabel>
+                </ProfileFormContainer>
+              )}
+              <Field type="text" name="firstName" disabled={!editState} />
               <ErrorMessage component="div" name="firstName" />
             </FormRow>
             <FormRow>
-              <Field type="text" name="lastName" disabled={!editingState} />
+              {editState && (
+                <ProfileFormContainer>
+                  <ProfileFormLabel htmlFor="lastName">
+                    Last name
+                  </ProfileFormLabel>
+                </ProfileFormContainer>
+              )}
+              <Field type="text" name="lastName" disabled={!editState} />
               <ErrorMessage component="div" name="lastName" />
             </FormRow>
             <FormRow>
-              <Field type="email" name="email" disabled={!editingState} />
+              {editState && (
+                <ProfileFormContainer>
+                  <ProfileFormLabel htmlFor="email">Email</ProfileFormLabel>
+                </ProfileFormContainer>
+              )}
+              <Field type="email" name="email" disabled={!editState} />
               <ErrorMessage component="div" name="email" />
             </FormRow>
             <FormRow>
-              <Field
-                type="text"
-                name="githubUsername"
-                disabled={!editingState}
-              />
+              {editState && (
+                <ProfileFormContainer>
+                  <ProfileFormLabel htmlFor="githubUsername">
+                    Github
+                  </ProfileFormLabel>
+                </ProfileFormContainer>
+              )}
+              <Field type="text" name="githubUsername" disabled={!editState} />
               <ErrorMessage component="div" name="githubUsername" />
             </FormRow>
             <FormRow>
-              <Field
-                type="text"
-                name="zeplinUsername"
-                disabled={!editingState}
-              />
+              {editState && (
+                <ProfileFormContainer>
+                  <ProfileFormLabel htmlFor="zeplinUsername">
+                    Zeplin
+                  </ProfileFormLabel>
+                </ProfileFormContainer>
+              )}
+              <Field type="text" name="zeplinUsername" disabled={!editState} />
               <ErrorMessage component="div" name="zeplinUsername" />
             </FormRow>
             <FormRow>
+              {editState && (
+                <ProfileFormContainer>
+                  <ProfileFormLabel htmlFor="activeFacultyYear">
+                    Active faculty year
+                  </ProfileFormLabel>
+                </ProfileFormContainer>
+              )}
               <Select
                 id="activeFacultyYear"
-                disabled={!editingState}
+                disabled={!editState}
                 {...formik.getFieldProps("activeFacultyYear")}
               >
                 <Option value="" disabled hidden>
@@ -117,7 +167,7 @@ const ProfileForm = (editState) => {
               </Select>
               <ErrorMessage component="div" name="activeFacultyYear" />
             </FormRow>
-            {editingState && (
+            {editState && (
               <FormRow>
                 <Button
                   isSecondary
