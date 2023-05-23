@@ -10,11 +10,16 @@ import {
   HeaderNav,
 } from "./HeaderStyle";
 import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
-const Header = ({ isAdmin, isLoggedIn, setIsAdmin, setIsLoggedIn }) => {
+const Header = () => {
   const navigate = useNavigate();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const { isAdmin, setIsAdmin, isLoggedIn, setIsLoggedIn } =
+    useContext(AuthContext);
 
   const toggleMenu = () => {
     console.log("Klikno sam hamburger");
@@ -26,7 +31,7 @@ const Header = ({ isAdmin, isLoggedIn, setIsAdmin, setIsLoggedIn }) => {
   };
 
   const logOut = () => {
-    setIsLoggedIn(false);
+    setIsLoggedIn(!isLoggedIn);
     setIsAdmin(false);
     localStorage.removeItem("jwt_token");
     const isItemRemoved = localStorage.getItem("jwt_token") === null;
@@ -45,8 +50,6 @@ const Header = ({ isAdmin, isLoggedIn, setIsAdmin, setIsLoggedIn }) => {
             isOpen={isMenuOpen}
             toggleMenu={toggleMenu}
             closeMenu={closeMenu}
-            isAdmin={isAdmin}
-            isLoggedIn={isLoggedIn}
             logOut={logOut}
           />
         </Hamburger>

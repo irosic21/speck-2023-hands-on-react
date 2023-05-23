@@ -13,11 +13,17 @@ import { Button } from "../../utils/styles/generalStyles";
 import { getUsers, loginUser } from "../../api/users";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
-const SignIn = ({ setIsAdmin, setIsLoggedIn }) => {
+const SignIn = () => {
   const [successMessage, setSuccessMessage] = useState(null);
 
   const navigate = useNavigate();
+
+  const { isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin } =
+    useContext(AuthContext);
+
   return (
     <Section title="Sign in">
       <Formik
@@ -55,7 +61,7 @@ const SignIn = ({ setIsAdmin, setIsLoggedIn }) => {
             localStorage.setItem("is_admin", user.is_admin);
 
             setIsAdmin(user.is_admin);
-            setIsLoggedIn(true);
+            setIsLoggedIn(!isLoggedIn);
 
             resetForm();
           } catch (error) {

@@ -7,22 +7,12 @@ import CourseArticle from "./pages/CourseArticle/CourseArticle";
 import SignIn from "./pages/SignIn/SignIn";
 import Register from "./pages/Register/Register";
 import Profile from "./pages/Profile/Profile";
-import { useState } from "react";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 function App() {
-  const [isAdmin, setIsAdmin] = useState(false);
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   return (
     <>
-      <Header
-        isAdmin={isAdmin}
-        isLoggedIn={isLoggedIn}
-        setIsAdmin={setIsAdmin}
-        setIsLoggedIn={setIsLoggedIn}
-      />
+      <Header />
       <main>
         <Routes>
           <Route index element={<Home />} />
@@ -31,17 +21,12 @@ function App() {
           <Route
             path="/profile"
             element={
-              <ProtectedRoute redirectPath={"/"} state={isAdmin}>
+              <ProtectedRoute redirectPath={"/"}>
                 <Profile />
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/sign-in"
-            element={
-              <SignIn setIsAdmin={setIsAdmin} setIsLoggedIn={setIsLoggedIn} />
-            }
-          />
+          <Route path="/sign-in" element={<SignIn />} />
           <Route path="/register" element={<Register />} />
         </Routes>
         <ScrollToTop />
