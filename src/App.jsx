@@ -8,11 +8,13 @@ import SignIn from "./pages/SignIn/SignIn";
 import Register from "./pages/Register/Register";
 import Profile from "./pages/Profile/Profile";
 import { useState } from "react";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <>
       <Header
@@ -26,7 +28,14 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/courses/:id" element={<CourseArticle />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute redirectPath={"/"} state={isAdmin}>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/sign-in"
             element={

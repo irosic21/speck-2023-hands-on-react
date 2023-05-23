@@ -25,6 +25,15 @@ const Header = ({ isAdmin, isLoggedIn, setIsAdmin, setIsLoggedIn }) => {
     setIsMenuOpen(false);
   };
 
+  const logOut = () => {
+    setIsLoggedIn(false);
+    setIsAdmin(false);
+    localStorage.removeItem("jwt_token");
+    const isItemRemoved = localStorage.getItem("jwt_token") === null;
+    console.log(isItemRemoved);
+    localStorage.removeItem("is_admin");
+  };
+
   return (
     <HeaderWrapper>
       <HeaderInner>
@@ -36,17 +45,33 @@ const Header = ({ isAdmin, isLoggedIn, setIsAdmin, setIsLoggedIn }) => {
             isOpen={isMenuOpen}
             toggleMenu={toggleMenu}
             closeMenu={closeMenu}
+            isAdmin={isAdmin}
+            isLoggedIn={isLoggedIn}
+            logOut={logOut}
           />
         </Hamburger>
-        <HeaderNav>
-          <HeaderLink to="/">Home</HeaderLink>
-          <HeaderLink to="/courses">Courses</HeaderLink>
-          <HeaderLink to="/profile">Profile</HeaderLink>
-          <Button onClick={() => navigate("/sign-in")} isOutline>
-            Sign in
-          </Button>
-          <Button onClick={() => navigate("/register")}>Register</Button>
-        </HeaderNav>
+        {isLoggedIn ? (
+          <HeaderNav>
+            <HeaderLink to="/">Home</HeaderLink>
+            <HeaderLink to="/courses">Courses</HeaderLink>
+            {isAdmin && <HeaderLink to="/profile">Profile</HeaderLink>}
+            <Button
+              onClick={() => {
+                logOut();
+                navigate("/sign-in");
+              }}
+            >
+              Sign out
+            </Button>
+          </HeaderNav>
+        ) : (
+          <HeaderNav>
+            <Button onClick={() => navigate("/sign-in")} isOutline>
+              Sign in
+            </Button>
+            <Button onClick={() => navigate("/register")}>Register</Button>
+          </HeaderNav>
+        )}
       </HeaderInner>
     </HeaderWrapper>
   );

@@ -12,10 +12,12 @@ import Section from "../../components/Section/Section";
 import { Button } from "../../utils/styles/generalStyles";
 import { getUsers, loginUser } from "../../api/users";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = ({ setIsAdmin, setIsLoggedIn }) => {
   const [successMessage, setSuccessMessage] = useState(null);
 
+  const navigate = useNavigate();
   return (
     <Section title="Sign in">
       <Formik
@@ -50,6 +52,7 @@ const SignIn = ({ setIsAdmin, setIsLoggedIn }) => {
             }, 2000);
 
             localStorage.setItem("jwt_token", response.access_token);
+            localStorage.setItem("is_admin", user.is_admin);
 
             setIsAdmin(user.is_admin);
             setIsLoggedIn(true);
@@ -62,6 +65,7 @@ const SignIn = ({ setIsAdmin, setIsLoggedIn }) => {
             });
           } finally {
             setSubmitting(false);
+            navigate("/");
           }
         }}
       >
