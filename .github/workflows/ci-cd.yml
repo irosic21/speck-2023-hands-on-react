@@ -1,8 +1,71 @@
-name: hello-world
-on: push
+name: React Vite CI/CD
+
+on:
+  push:
+    branches: [main]
+
 jobs:
-  sample-job:
+  build:
+    name: Build React Vite Application
     runs-on: ubuntu-latest
     steps:
-      - name: my-step
-        run: echo "Hello World!"
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build application
+        run: yarn build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: built-artifact
+          path: dist
+
+  deploy:
+    needs: build
+    name: Deploy React Vite Application to Vercel
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download built artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: built-artifact
+          path: dist
+
+      - name: Install Vercel CLI
+        run: curl -sSL https://vercel.com/cli/install | bash
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
+      - name: Initialize Vercel project
+        run: vercel init
+
+      - name: Deploy to Vercel
+        run: vercel deploy --public-url https://your-project.vercel.app
+
+  test:
+    needs: build
+    name: Run Jest Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run jest tests
+        run: yarn test
