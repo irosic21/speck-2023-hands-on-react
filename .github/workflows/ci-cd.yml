@@ -1,6 +1,7 @@
 name: CI/CD Pipeline
 
-on: push
+on:
+  push
 
 jobs:
   build:
@@ -29,9 +30,8 @@ jobs:
     needs: build
 
     steps:
-    - name: Deploy to Netlify
-      uses: netlify/actions/cli@v1
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        args: deploy --prod
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
