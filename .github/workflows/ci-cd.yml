@@ -1,6 +1,11 @@
 name: CI/CD Pipeline
 
-on: push
+on:  
+  push:
+    branches: ["feature/CI-CD","lecture*"]
+  pull_request:
+    branches: ["feature/CI-CD","lecture*"]
+  workflow_dispatch:
 
 jobs:
   build:
