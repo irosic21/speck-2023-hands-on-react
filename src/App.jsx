@@ -9,6 +9,7 @@ import Register from "./pages/Register/Register";
 import Profile from "./pages/Profile/Profile";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
+
 function App() {
   return (
     <>
